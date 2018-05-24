@@ -50,7 +50,7 @@
                             <th width="140">创建时间</th>
                             <th width="140">更新时间</th>
                             <!-- <th width="40">状态</th> -->
-                            <th width="100">操作</th>
+                            <th width="60">操作</th>
                         </tr>
                     </thead>
                 </table>

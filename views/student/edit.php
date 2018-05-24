@@ -22,48 +22,30 @@
     </head>
     <body>
         <article class="page-container">
-            <form class="form form-horizontal" id="form-course-edit">
-                <input type="hidden" name="id" value="<?=$course_data['id']?>">
+            <form class="form form-horizontal" id="form-student-edit">
+                <input type="hidden" name="id" value="<?=$student_data['id']?>">
                 <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>课程名称：</label>
+                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学号：</label>
                     <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text" id="course_name" name="course_name" value="<?=$course_data['name']?>">
+                        <input type="text" class="input-text" id="student_id" name="student_id" value="<?=$student_data['student_id']?>">
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所在教室：</label>
+                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学院：</label>
                     <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text" id="course_position" name="course_position" value="<?=$course_data['position']?>">
+                        <input type="text" class="input-text" name="college" id="college" value="<?=$student_data['college']?>">
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上课时间：</label>
+                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>专业：</label>
                     <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm:ss' })" id="time" name="time" class="input-text Wdate" value="<?=$course_data['time']?>">
+                        <input type="text" class="input-text" name="faculty" id="faculty" value="<?=$student_data['faculty']?>">
                     </div>
                 </div>
                 <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>授课教师：</label>
+                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>电话：</label>
                     <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text" id="teacher" name="teacher" value="<?=$course_data['teacher']?>">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>经度：</label>
-                    <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text" placeholder="手动输入经度" name="longitude" id="longitude" value="<?=$course_data['longitude']?>">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>纬度：</label>
-                    <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text" placeholder="手动输入纬度" name="latitude" id="latitude" value="<?=$course_data['latitude']?>">
-                    </div>
-                </div>
-                <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-3">地图选点：</label>
-                    <div class="formControls col-xs-8 col-sm-9">
-                        <input type="button" class="btn btn-secondary radius" onclick="select_point('选择地点','/common/map','780','440')" id="btn-select-point" value="选择地点">
+                        <input type="text" class="input-text" name="phone" id="phone" value="<?=$student_data['phone']?>">
                     </div>
                 </div>
                 <div class="row cl">
@@ -81,32 +63,26 @@
         <script type="text/javascript" src="../js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
         <!--请在下方写此页面业务相关的脚本-->
-        <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
         <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
         <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
         <script type="text/javascript" src="../lib/jquery.validation/1.14.0/additional-methods.js"></script> 
         <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script> 
         <script type="text/javascript">
         $(function(){
-            $("#form-course-edit").validate({
+            $("#form-student-edit").validate({
                 rules:{
-                    course_name:{
+                    student_id:{
                         required:true,
                     },
-                    course_position:{
+                    college:{
                         required:true,
                     },
-                    time:{
+                    faculty:{
                         required:true,
                     },
-                    teacher:{
+                    phone:{
                         required:true,
-                    },
-                    longitude:{
-                        required:true,
-                    },
-                    latitude:{
-                        required:true,
+                        isMobile:true
                     }
                 },
                 onkeyup:false,
@@ -114,7 +90,7 @@
                 submitHandler:function(form){
                     $(form).ajaxSubmit({
                         type: 'post',
-                        url: "/course/edit" ,
+                        url: "/student/edit" ,
                         success: function(data){
                             data = JSON.parse(data);
                             if(data.code == 10000){
@@ -134,10 +110,6 @@
                 }
             });
         });
-        /*地图选点*/
-        function select_point(title,url,w,h){
-            layer_show(title,url,w,h);
-        }
         </script>
         <!--/请在上方写此页面业务相关的脚本-->
     </body>

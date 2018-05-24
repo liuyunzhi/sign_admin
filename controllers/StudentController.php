@@ -1,8 +1,8 @@
 <?php
 /**
- * 后台管理系统-课程管理
+ * 后台管理系统-学生管理
  *
- * CourseController
+ * StudentController
  * 
  * @copyright cdut
  * @author liuyunzhi
@@ -13,14 +13,14 @@ namespace app\controllers;
 
 use yii;
 use yii\web\Controller;
-use app\models\CourseService;
+use app\models\studentService;
 use app\library\ClassLib;
 use Hprose\Http\Client;
 
-class CourseController extends AuthController{
+class StudentController extends AuthController{
 
 	/**
-	 * 课程列表
+	 * 学生列表
 	 */
     public function actionList(){
         $request = Yii::$app->getRequest();
@@ -42,13 +42,13 @@ class CourseController extends AuthController{
             }
             
 			$sign_core_rpc = new Client(yii::$app->params['sign_core_rpc'], false);
-            $course_list = $sign_core_rpc->getCourseList($start / $length, $length, $searching);
+            $student_list = $sign_core_rpc->getStudentList($start / $length, $length, $searching);
 
 			$data = [
 				"draw"=> intval($draw),
-				"recordsTotal"=> intval($course_list['total']),
-				"recordsFiltered"=> intval($course_list['total']),
-				"data"=> $course_list['list']
+				"recordsTotal"=> intval($student_list['total']),
+				"recordsFiltered"=> intval($student_list['total']),
+				"data"=> $student_list['list']
 			];
 
 			exit(json_encode($data,JSON_UNESCAPED_UNICODE));
@@ -56,7 +56,7 @@ class CourseController extends AuthController{
     }
 
     /**
-	 * 新增课程
+	 * 新增学生
 	 */
 	public function actionAdd(){
 
@@ -67,15 +67,16 @@ class CourseController extends AuthController{
 			return $this->renderPartial('add');
 		}
 		if ($request->isPost) {
-			$name = $request->post('course_name');
-			$position = $request->post('course_position');
-			$time = $request->post('time');
-			$teacher = $request->post('teacher');
-			$longitude = $request->post('longitude');
-			$latitude = $request->post('latitude');
+			$student_id = $request->post('student_id');
+			$person_id = $request->post('person_id');
+			$name = $request->post('name');
+			$gender = $request->post('gender');
+			$college = $request->post('college');
+			$faculty = $request->post('faculty');
+			$phone = $request->post('phone');
 
             $sign_core_rpc = new Client(yii::$app->params['sign_core_rpc'], false);
-			$result = $sign_core_rpc->addCourse($name, $position, $longitude, $latitude, $time, $teacher);
+			$result = $sign_core_rpc->registerStudent($student_id, $person_id, $person_id, $name, $gender, $college, $faculty, $phone);
 			
 			if ($result) {
 				ClassLib::exit_json(10000);
@@ -86,7 +87,7 @@ class CourseController extends AuthController{
     }
 
     /**
-	 * 编辑课程
+	 * 编辑学生
 	 */
 	public function actionEdit(){
 
@@ -95,20 +96,18 @@ class CourseController extends AuthController{
 
 		if ($request->isGet) {
 			$id = $request->get('id');
-			$course_data = $sign_core_rpc->getCourseByIds($id);
+			$student_data = $sign_core_rpc->getStudentByIds($id);
 			
-			return $this->renderPartial('edit', ['course_data' => $course_data[0]]);
+			return $this->renderPartial('edit', ['student_data' => $student_data[0]]);
 		}
 		if ($request->isPost) {
 			$id = $request->post('id');
-			$name = $request->post('course_name');
-			$position = $request->post('course_position');
-			$time = $request->post('time');
-			$teacher = $request->post('teacher');
-			$longitude = $request->post('longitude');
-			$latitude = $request->post('latitude');
+			$student_id = $request->post('student_id');
+			$college = $request->post('college');
+			$faculty = $request->post('faculty');
+			$phone = $request->post('phone');
 
-			$status = $sign_core_rpc->updateCourse($id, $name, $position, $longitude, $latitude, $time, $teacher);
+			$status = $sign_core_rpc->updateStudent($id, $student_id, $college, $faculty, $phone);
 
 			if($status){
 				ClassLib::exit_json(10000);
@@ -119,12 +118,12 @@ class CourseController extends AuthController{
 	}
     
     /**
-	 * 删除课程
+	 * 删除学生
 	 */
 	public function actionDelete($id){
 
 		$sign_core_rpc = new Client(yii::$app->params['sign_core_rpc'], false);
-        $result = $sign_core_rpc->deleteCourse($id);
+        $result = $sign_core_rpc->deleteStudent($id);
 
 		if($result){
 			ClassLib::exit_json(10000);
