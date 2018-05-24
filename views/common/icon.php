@@ -1321,23 +1321,23 @@
 					
 				</li>
 				<li> <i class="icon Hui-iconfont">&#xe64a;</i>
-					<div class="name"><a onclick="selected('')">苹果</a></div>
+					<div class="name"><a onclick="selected('64a')">苹果</a></div>
 					<div class="code">64a</div>
 				</li>
 				<li> <i class="icon Hui-iconfont">&#xe6a2;</i>
-					<div class="name"><a onclick="selected('')">android</a></div>
+					<div class="name"><a onclick="selected('6a2')">android</a></div>
 					<div class="code">6a2</div>
 				</li>
 				<li> <i class="icon Hui-iconfont">&#xe6d1;</i>
-					<div class="name"><a onclick="selected('')">github</a></div>
+					<div class="name"><a onclick="selected('6d1')">github</a></div>
 					<div class="code">6d1</div>
 				</li>
 				<li> <i class="icon Hui-iconfont">&#xe6d2;</i>
-					<div class="name"><a onclick="selected('')">html5</a></div>
+					<div class="name"><a onclick="selected('6d2')">html5</a></div>
 					<div class="code">6d2</div>
 				</li>
 				<li> <i class="icon Hui-iconfont">&#xe6d3;</i>
-					<div class="name"><a onclick="selected('')">皇冠</a></div>
+					<div class="name"><a onclick="selected('6d3')">皇冠</a></div>
 					<div class="code">6d3</div>
 				</li>
 			</ul>

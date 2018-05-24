@@ -20,5 +20,12 @@ class CommonController extends AuthController{
 	 */
 	public function actionIcon(){
         return $this->renderPartial('icon');
-    }
+	}
+	
+	/**
+	 * 地图
+	 */
+	public function actionMap() {
+		return $this->renderPartial('map');
+	}
 }
