@@ -105,7 +105,8 @@
                 {"data": "created_date","searchable": false},
                 {"data": "update_date","searchable": false},
                 {"data": null, "render": function( data, type, row, meta ){
-                        return '<a title="编辑" href="javascript:;" onclick=student_edit("编辑学生","/student/edit",'+row.id+',"800","500") class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'
+                        return '<a onClick=sign_show("查看考勤记录详情","/sign/records-student",'+row.id+',"1200","600") href="javascript:;" title="查看考勤记录" style="text-decoration:none"><i class="Hui-iconfont">&#xe725;</i></a>'
+                            +'<a title="编辑" href="javascript:;" onclick=student_edit("编辑学生","/student/edit",'+row.id+',"800","500") class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'
                             + '<a title="删除" href="javascript:;" onclick="student_del(this,'+row.id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
                 }, "searchable": false}
             ]
@@ -116,6 +117,11 @@
         });
         /*学生-增加*/
         function student_add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+        /*查看考勤记录*/
+        function sign_show(title,url,id,w,h){
+            url = url+'?id='+id;
             layer_show(title,url,w,h);
         }
         /*学生-编辑*/

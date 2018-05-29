@@ -82,5 +82,68 @@ class SignController extends AuthController{
             }
 		}
 	}
-    
+	
+	/**
+	 * 指定学生的考勤记录
+	 */
+	public function actionRecordsStudent(){
+
+		$request = Yii::$app->getRequest();
+
+		if ($request->isGet) {
+			$student_id = $request->get('id');
+
+			return $this->renderPartial('records-student',['student_id'=>$student_id]);
+		}
+		if ($request->isAjax) {
+			$draw = $request->post('draw');
+			$start = $request->post('start');
+			$length = $request->post('length');
+			$search = $request->post('search');
+			
+			$sign_core_rpc = new Client(yii::$app->params['sign_core_rpc'], false);
+            $record_list = $sign_core_rpc->getRecordListByStudentId($search['value'], $start / $length, $length);
+
+			$data = [
+				"draw"=> intval($draw),
+				"recordsTotal"=> intval($record_list['total']),
+				"recordsFiltered"=> intval($record_list['total']),
+				"data"=> $record_list['list']
+			];
+
+			exit(json_encode($data,JSON_UNESCAPED_UNICODE));
+		}
+	}
+
+	/**
+	 * 指定课程的考勤记录
+	 */
+	public function actionRecordsCourse(){
+
+		$request = Yii::$app->getRequest();
+
+		if ($request->isGet) {
+			$course_id = $request->get('id');
+
+			return $this->renderPartial('records-course',['course_id'=>$course_id]);
+		}
+		if ($request->isAjax) {
+			$draw = $request->post('draw');
+			$start = $request->post('start');
+			$length = $request->post('length');
+			$search = $request->post('search');
+			
+			$sign_core_rpc = new Client(yii::$app->params['sign_core_rpc'], false);
+            $record_list = $sign_core_rpc->getRecordListByCourseId($search['value'], $start / $length, $length);
+
+			$data = [
+				"draw"=> intval($draw),
+				"recordsTotal"=> intval($record_list['total']),
+				"recordsFiltered"=> intval($record_list['total']),
+				"data"=> $record_list['list']
+			];
+
+			exit(json_encode($data,JSON_UNESCAPED_UNICODE));
+		}
+	}
 }

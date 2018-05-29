@@ -104,8 +104,9 @@
                 // }, "className": "td-status","searchable": false},
                 {"data": null, "render": function( data, type, row, meta ){
                         // var status_button = row.course_status ? '<a style="text-decoration:none" onClick="course_frozen(this,'+row.course_id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>' : '<a onClick="course_thaw(this,'+row.course_id+')" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>';
-                        return '<a title="编辑" href="javascript:;" onclick=course_edit("编辑课程","/course/edit",'+row.id+',"800","500") class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'+
-                        '<a title="删除" href="javascript:;" onclick="course_del(this,'+row.id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+                        return '<a onClick=sign_show("查看考勤记录详情","/sign/records-course",'+row.id+',"1200","600") href="javascript:;" title="查看考勤记录" style="text-decoration:none"><i class="Hui-iconfont">&#xe725;</i></a>'
+                            +'<a title="编辑" href="javascript:;" onclick=course_edit("编辑课程","/course/edit",'+row.id+',"800","500") class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>'
+                            +'<a title="删除" href="javascript:;" onclick="course_del(this,'+row.id+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>';
                 }, "className": "td-manage","searchable": false}
             ]
         } );
@@ -115,6 +116,11 @@
         });
         /*课程-增加*/
         function course_add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+        /*查看考勤记录*/
+        function sign_show(title,url,id,w,h){
+            url = url+'?id='+id;
             layer_show(title,url,w,h);
         }
         /*课程-编辑*/
