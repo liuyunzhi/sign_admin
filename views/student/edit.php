@@ -94,7 +94,7 @@
                         success: function(data){
                             data = JSON.parse(data);
                             if(data.code == 10000){
-                                layer.msg('添加成功！',{icon:1,time:1000},function(){
+                                layer.msg('修改成功！',{icon:1,time:1000},function(){
                                     parent.location.reload();
                                     var index = parent.layer.index;
                                     parent.layer.close(index);
